@@ -15,8 +15,8 @@ class BasicAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $username = 'user';      // Your hardcoded username
-        $password = '123456';  // Your hardcoded password
+        $username = env('BASIC_AUTH_USERNAME');
+        $password = env('BASIC_AUTH_PASSWORD');
 
         if ($request->getUser() !== $username || $request->getPassword() !== $password) {
             return response('Unauthorized', 401, [
