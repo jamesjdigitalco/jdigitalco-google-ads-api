@@ -11,3 +11,5 @@ Route::get('/', function () {
 Route::get('/test-middleware', function () {
     return '<h1>API Mode Only</h1>';
 })->middleware(BasicAuthMiddleware::class);
+
+Route::post('/test-post', [GoogleAdsController::class, 'testPost'])->middleware(BasicAuthMiddleware::class);
