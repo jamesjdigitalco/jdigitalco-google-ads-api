@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('group_ad', 64)->nullable();
             $table->string('group_name', 128)->nullable();
             $table->string('group_id', 32)->nullable()->index();
-            $table->dateTime('date_time')->index();
+            $table->dateTime('date_time')->nullable()->index();
+            $table->date('segments_date')->nullable()->index();
             $table->string('account_id', 32)->nullable()->index();
             $table->string('account_name', 128)->nullable()->index();
-            $table->dateTime('date_time_no_timezone')->index();
+            $table->dateTime('date_time_no_timezone')->nullable()->index();
             $table->string('conversion_name', 128)->nullable();
             $table->string('converted', 8)->index()->default('NO');
             $table->timestamps();

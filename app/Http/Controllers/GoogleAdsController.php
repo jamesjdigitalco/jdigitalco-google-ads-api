@@ -38,6 +38,7 @@ class GoogleAdsController extends Controller
             'group_name' => $request['group_name'],
             'group_id' => $request['group_id'],
             'date_time' => $request['date_time'],
+            'segments_date' => $request['segments_date'],
             'account_id' => $request['account_id'],
             'account_name' => $request['account_name'],
             'date_time_no_timezone' => $request['date_time_no_timezone'],
