@@ -42,7 +42,7 @@ class GoogleAdsController extends Controller
             'account_id' => $request['account_id'],
             'account_name' => $request['account_name'],
             'date_time_no_timezone' => $request['date_time_no_timezone'],
-            'conversion_name' => $request['conversion_name'],
+            'conversion_action_name' => $request['conversion_action_name'],
         ]);
 
         return response()->json(['id' => $result->id]);
