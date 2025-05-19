@@ -13,3 +13,8 @@ Route::get('/test-middleware', function () {
 })->middleware(BasicAuthMiddleware::class);
 
 Route::post('/test-post', [GoogleAdsController::class, 'testPost'])->middleware(BasicAuthMiddleware::class);
+
+Route::get('/all-clicks', [GoogleAdsController::class, 'allClicks'])->middleware(BasicAuthMiddleware::class);
+
+// Route to add Google Clicks
+Route::post('/add-click', [GoogleAdsController::class, 'addClick'])->middleware(BasicAuthMiddleware::class);
