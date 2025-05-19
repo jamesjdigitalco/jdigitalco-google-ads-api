@@ -26,7 +26,7 @@ class GoogleAdsController extends Controller
         $result = Click::where('gclid', $gclid)->first();
         if ($result) { // Do not insert, GCLID already exists
             return response()->json([
-                'message' => "GCLID `{$gclid}` already exists!"
+                'message' => "INSERT FAILED: GCLID `{$gclid}` already exists!"
             ]);
         }
 
