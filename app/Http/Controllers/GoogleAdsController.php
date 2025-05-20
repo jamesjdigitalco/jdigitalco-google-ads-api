@@ -10,12 +10,20 @@ class GoogleAdsController extends Controller
 {
     public function testPost(Request $request)
     {
-        return response()->json(['message' => 'Authenticated and received POST data', 'data' => $request->all()]);
+        return response()->json(
+            ['message' => 'Authenticated and received POST data', 'data' => $request->all()]
+        );
     }
 
     public function allClicks()
     {
-        return response()->json(Click::all());
+        if (isset($request->all) && $request->all === 'true') {
+            return response()->json(Click::all());
+        }
+
+        return response()->json(
+            Click::select('gclid', 'account_id', 'account_name')->get()
+        );
     }
 
     public function addClick(Request $request)
