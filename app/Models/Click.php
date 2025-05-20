@@ -19,10 +19,11 @@ class Click extends Model
         'group_name',
         'group_id',
         'date_time',
+        'segments_date',
         'account_id',
         'account_name',
         'date_time_no_timezone',
-        'conversion_name'
+        'conversion_action_name'
     ];
 
     // Hide columns
