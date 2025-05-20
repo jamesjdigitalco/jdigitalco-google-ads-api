@@ -15,9 +15,9 @@ class GoogleAdsController extends Controller
         );
     }
 
-    public function allClicks()
+    public function allClicks(Request $request)
     {
-        if (isset($request->all) && $request->all === 'true') {
+        if ($request->query('all') === 'true') {
             return response()->json(Click::all());
         }
 
