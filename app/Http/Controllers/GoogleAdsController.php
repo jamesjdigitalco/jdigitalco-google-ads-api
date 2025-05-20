@@ -22,7 +22,7 @@ class GoogleAdsController extends Controller
         }
 
         return response()->json(
-            Click::select('gclid', 'account_id', 'account_name')->get()
+            Click::select('id', 'gclid', 'account_id', 'account_name')->get()
         );
     }
 
