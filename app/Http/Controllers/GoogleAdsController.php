@@ -61,6 +61,8 @@ class GoogleAdsController extends Controller
         $gclid = $request['gclid'] ?? '';
         $accountId = $request['account_id'] ?? '';
         $accountName = $request['account_name'] ?? '';
+        $groupAd = $request['group_ad'] ?? '';
+        $groupName = $request['account_name'] ?? '';
         $startDatetime = $request['start_datetime'] ?? '';
         $endDatetime = $request['end_datetime'] ?? '';
 
@@ -73,6 +75,12 @@ class GoogleAdsController extends Controller
         }
         if ($accountName) {
             $query = $query->where('account_name', $accountName);
+        }
+        if ($groupAd) {
+            $query = $query->where('group_ad', $groupAd);
+        }
+        if ($groupName) {
+            $query = $query->where('group_name', $groupName);
         }
         if ($startDatetime && $endDatetime) {
             $query = $query->whereBetween('date_time_no_timezone', [$startDatetime, $endDatetime]);
