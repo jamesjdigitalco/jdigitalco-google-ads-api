@@ -55,4 +55,29 @@ class GoogleAdsController extends Controller
 
         return response()->json(['id' => $result->id]);
     }
+
+    public function getClicks(Request $request)
+    {
+        $gclid = $request['gclid'] ?? '';
+        $accountId = $request['account_id'] ?? '';
+        $accountName = $request['account_name'] ?? '';
+        $startDatetime = $request['start_datetime'] ?? '';
+        $endDatetime = $request['end_datetime'] ?? '';
+
+        $query = Click::query();
+        if ($gclid) {
+            $query = $query->where('gclid', $gclid);
+        }
+        if ($accountId) {
+            $query = $query->where('account_id', $accountId);
+        }
+        if ($accountName) {
+            $query = $query->where('account_name', $accountName);
+        }
+        if ($startDatetime && $endDatetime) {
+            $query = $query->whereBetween('date_time_no_timezone', [$startDatetime, $endDatetime]);
+        }
+
+        return response()->json($query->get());
+    }
 }
