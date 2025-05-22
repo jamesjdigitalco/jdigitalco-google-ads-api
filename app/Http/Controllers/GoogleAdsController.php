@@ -91,6 +91,7 @@ class GoogleAdsController extends Controller
 
     public function addBulkJsonClicks(Request $request)
     {
+        $start = microtime(true);
         $longIncompleteJsonString = urldecode($request->payload ?? '');
         $correctJsonString = "[" . substr($longIncompleteJsonString, 0, -1) . "]";
         $arrayOfClicks = json_decode($correctJsonString);
@@ -120,7 +121,8 @@ class GoogleAdsController extends Controller
 
         return response()->json([
             'total_inserted_gclids' => count($returnGclids),
-            'ids' => $returnGclids
+            'ids' => $returnGclids,
+            'execution_time' => (microtime(true) - $start)
         ]);
     }
 }
