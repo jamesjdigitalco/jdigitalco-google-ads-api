@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('clicks', function (Blueprint $table) {
             $table->id();
-            $table->string('gclid', 128)->nullable()->index();
+            $table->string('gclid', 128)->nullable()->index()->unique();
             $table->string('resource_name', 256)->nullable();
             $table->string('group_ad', 64)->nullable();
             $table->string('group_name', 128)->nullable();

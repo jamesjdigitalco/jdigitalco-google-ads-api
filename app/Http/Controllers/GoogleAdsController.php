@@ -99,7 +99,7 @@ class GoogleAdsController extends Controller
         foreach ($arrayOfClicks as $click) {
             // Check first if this GCLID exists in the `clicks` table
             $result = Click::where('gclid', $click->gclid)->first();
-            if (!$result) { // Insert if gclid does not exists in `clicks` table
+            if (!$result && strlen($click->gclid) > 0) { // Insert if gclid does not exists in `clicks` table
                 $returnGclids[] = $click->gclid;
                 // Insert to `clicks` table
                 $result = Click::create([
