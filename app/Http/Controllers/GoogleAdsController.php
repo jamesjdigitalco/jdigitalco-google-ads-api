@@ -120,19 +120,21 @@ class GoogleAdsController extends Controller
         }*/
         $clicksToInsert = [];
         foreach ($arrayOfClicks as $click) {
-            $clicksToInsert[] = [
-                'gclid' => $click->gclid,
-                'resource_name' => $click->resource_name,
-                'group_ad' => $click->group_ad,
-                'group_name' => $click->group_name,
-                'group_id' => $click->group_id,
-                'date_time' => $click->date_time,
-                'segments_date' => $click->segments_date,
-                'account_id' => $click->account_id,
-                'account_name' => $click->account_name,
-                'date_time_no_timezone' => $click->date_time_no_timezone,
-                'conversion_action_name' => $click->conversion_action_name,
-            ];
+            if (strlen($click->gclid) > 0) {
+                $clicksToInsert[] = [
+                    'gclid' => $click->gclid,
+                    'resource_name' => $click->resource_name,
+                    'group_ad' => $click->group_ad,
+                    'group_name' => $click->group_name,
+                    'group_id' => $click->group_id,
+                    'date_time' => $click->date_time,
+                    'segments_date' => $click->segments_date,
+                    'account_id' => $click->account_id,
+                    'account_name' => $click->account_name,
+                    'date_time_no_timezone' => $click->date_time_no_timezone,
+                    'conversion_action_name' => $click->conversion_action_name,
+                ];
+            }
         }
         $rowsInserted = 0;
         if (!empty($clicksToInsert)) {
