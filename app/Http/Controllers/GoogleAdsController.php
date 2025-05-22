@@ -88,4 +88,39 @@ class GoogleAdsController extends Controller
 
         return response()->json($query->get());
     }
+
+    public function addBulkJsonClicks(Request $request)
+    {
+        $longIncompleteJsonString = urldecode($request->payload ?? '');
+        $correctJsonString = "[" . substr($longIncompleteJsonString, 0, -1) . "]";
+        $arrayOfClicks = json_decode($correctJsonString);
+
+        $returnGclids = [];
+        foreach ($arrayOfClicks as $click) {
+            // Check first if this GCLID exists in the `clicks` table
+            $result = Click::where('gclid', $click->gclid)->first();
+            if (!$result) { // Insert if gclid does not exists in `clicks` table
+                $returnGclids[] = $click->gclid;
+                // Insert to `clicks` table
+                $result = Click::create([
+                    'gclid' => $click->gclid,
+                    'resource_name' => $click->resource_name,
+                    'group_ad' => $click->group_ad,
+                    'group_name' => $click->group_name,
+                    'group_id' => $click->group_id,
+                    'date_time' => $click->date_time,
+                    'segments_date' => $click->segments_date,
+                    'account_id' => $click->account_id,
+                    'account_name' => $click->account_name,
+                    'date_time_no_timezone' => $click->date_time_no_timezone,
+                    'conversion_action_name' => $click->conversion_action_name,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'total_inserted_gclids' => count($returnGclids),
+            'ids' => $returnGclids
+        ]);
+    }
 }
