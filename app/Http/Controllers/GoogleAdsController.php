@@ -96,7 +96,7 @@ class GoogleAdsController extends Controller
         $correctJsonString = "[" . substr($longIncompleteJsonString, 0, -1) . "]";
         $arrayOfClicks = json_decode($correctJsonString);
 
-        $returnGclids = [];
+        /*$returnGclids = [];
         foreach ($arrayOfClicks as $click) {
             // Check first if this GCLID exists in the `clicks` table
             $result = Click::where('gclid', $click->gclid)->first();
@@ -117,11 +117,31 @@ class GoogleAdsController extends Controller
                     'conversion_action_name' => $click->conversion_action_name,
                 ]);
             }
+        }*/
+        $clicksToInsert = [];
+        foreach ($arrayOfClicks as $click) {
+            $clicksToInsert[] = [
+                'gclid' => $click->gclid,
+                'resource_name' => $click->resource_name,
+                'group_ad' => $click->group_ad,
+                'group_name' => $click->group_name,
+                'group_id' => $click->group_id,
+                'date_time' => $click->date_time,
+                'segments_date' => $click->segments_date,
+                'account_id' => $click->account_id,
+                'account_name' => $click->account_name,
+                'date_time_no_timezone' => $click->date_time_no_timezone,
+                'conversion_action_name' => $click->conversion_action_name,
+            ];
+        }
+        $rowsInserted = 0;
+        if (!empty($clicksToInsert)) {
+            $rowsInserted = Click::insertOrIgnore($clicksToInsert);
         }
 
+
         return response()->json([
-            'total_inserted_gclids' => count($returnGclids),
-            'ids' => $returnGclids,
+            'added_gclids' => $rowsInserted,
             'execution_time' => (microtime(true) - $start)
         ]);
     }
