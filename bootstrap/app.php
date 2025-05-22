@@ -14,8 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             '/test-post',
             '/add-click',
-            '/get-clicks',
-            '/add-bulk-json-clicks'
+            '/get-clicks'
         ]);
     })->withExceptions(function (Exceptions $exceptions) {
         //
