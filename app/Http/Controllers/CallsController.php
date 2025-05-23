@@ -16,10 +16,10 @@ class CallsController extends Controller
     public function addCall(Request $request)
     {
         $rowsInserted = Call::insertOrIgnore([
-            'contact_id' => $request['contactId'],
-            'location_id' => $request['locationId'],
+            'contact_id' => $request['contact_id'],
+            'location_id' => $request['location_id'],
             'timestamp' => $request['timestamp'],
-            'conversation_id' => $request['conversationId'],
+            'conversation_id' => $request['conversation_id'],
         ]);
 
         return response()->json(['added_calls' => $rowsInserted]);
