@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
             '/test-post',
             '/add-click',
             '/get-clicks',
-            '/add-bulk-json-clicks'
+            '/add-bulk-json-clicks',
+            '/add-call'
         ]);
     })->withExceptions(function (Exceptions $exceptions) {
         //

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleAdsController;
+use App\Http\Controllers\CallsController;
 use App\Http\Middleware\BasicAuthMiddleware;
 
 Route::get('/', function () {
@@ -24,3 +25,9 @@ Route::post('/add-bulk-json-clicks', [GoogleAdsController::class, 'addBulkJsonCl
 
 // Route to get Google Clicks with filter
 Route::post('/get-clicks', [GoogleAdsController::class, 'getClicks'])->middleware(BasicAuthMiddleware::class);
+
+// Route to get all Calls
+Route::get('/all-calls', [CallsController::class, 'allCalls'])->middleware(BasicAuthMiddleware::class);
+
+// Route to register calls
+Route::post('/add-call', [CallsController::class, 'addCall'])->middleware(BasicAuthMiddleware::class);

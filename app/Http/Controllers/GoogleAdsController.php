@@ -83,7 +83,14 @@ class GoogleAdsController extends Controller
             $query = $query->where('group_name', $groupName);
         }
         if ($startDatetime && $endDatetime) {
-            $query = $query->whereBetween('date_time_no_timezone', [$startDatetime, $endDatetime]);
+            $query = $query->whereBetween('date_time', [$startDatetime, $endDatetime]);
+        }
+        // Other filters
+        if (isset($request['order_by_key']) && isset($request['order_by_value'])) {
+            $query = $query->orderBy($request['order_by_key'], $request['order_by_value']);
+        }
+        if (isset($request['limit'])) {
+            $query = $query->limit($request['limit']);
         }
 
         return response()->json($query->get());
@@ -96,28 +103,6 @@ class GoogleAdsController extends Controller
         $correctJsonString = "[" . substr($longIncompleteJsonString, 0, -1) . "]";
         $arrayOfClicks = json_decode($correctJsonString);
 
-        /*$returnGclids = [];
-        foreach ($arrayOfClicks as $click) {
-            // Check first if this GCLID exists in the `clicks` table
-            $result = Click::where('gclid', $click->gclid)->first();
-            if (!$result && strlen($click->gclid) > 0) { // Insert if gclid does not exists in `clicks` table
-                $returnGclids[] = $click->gclid;
-                // Insert to `clicks` table
-                $result = Click::create([
-                    'gclid' => $click->gclid,
-                    'resource_name' => $click->resource_name,
-                    'group_ad' => $click->group_ad,
-                    'group_name' => $click->group_name,
-                    'group_id' => $click->group_id,
-                    'date_time' => $click->date_time,
-                    'segments_date' => $click->segments_date,
-                    'account_id' => $click->account_id,
-                    'account_name' => $click->account_name,
-                    'date_time_no_timezone' => $click->date_time_no_timezone,
-                    'conversion_action_name' => $click->conversion_action_name,
-                ]);
-            }
-        }*/
         $clicksToInsert = [];
         foreach ($arrayOfClicks as $click) {
             if (strlen($click->gclid) > 0) {
