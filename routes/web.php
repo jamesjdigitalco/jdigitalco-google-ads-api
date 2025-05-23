@@ -26,6 +26,9 @@ Route::post('/add-bulk-json-clicks', [GoogleAdsController::class, 'addBulkJsonCl
 // Route to get Google Clicks with filter
 Route::post('/get-clicks', [GoogleAdsController::class, 'getClicks'])->middleware(BasicAuthMiddleware::class);
 
+// Route to get convert flag `converted` from NO to YES
+Route::post('/update-click-to-converted', [GoogleAdsController::class, 'updateClickToConverted'])->middleware(BasicAuthMiddleware::class);
+
 // Route to get all Calls
 Route::get('/all-calls', [CallsController::class, 'allCalls'])->middleware(BasicAuthMiddleware::class);
 

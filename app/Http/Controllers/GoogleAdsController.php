@@ -126,10 +126,21 @@ class GoogleAdsController extends Controller
             $rowsInserted = Click::insertOrIgnore($clicksToInsert);
         }
 
-
         return response()->json([
             'added_gclids' => $rowsInserted,
             'execution_time' => (microtime(true) - $start)
         ]);
+    }
+
+    public function updateClickToConverted(Request $request)
+    {
+        if (!isset($request['gclid'])) {
+            return response()->json(['error' => 'Parameter gclid is required.']);
+        }
+        $gclid = $request['gclid'];
+
+        Click::where('gclid', $gclid)->update(['converted' => 'YES']);
+
+        return response()->json(['updated_gclid' => $gclid]);
     }
 }

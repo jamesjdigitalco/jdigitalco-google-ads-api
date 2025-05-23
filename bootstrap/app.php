@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             '/test-post',
             '/add-click',
             '/get-clicks',
+            'update-click-to-converted',
             '/add-bulk-json-clicks',
             '/add-call'
         ]);
